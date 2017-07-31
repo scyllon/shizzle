@@ -1,0 +1,21 @@
+<div *ngIf="data.length >0;else other_content">
+  <md-list>
+    <div *ngFor="let link of data">
+ <md-list-item >
+   <a [href]="sanitize(link.magnet)"md-line><md-icon >keyboard_tab</md-icon></a>
+      <p md-line><b>{{link.title}}</b></p>
+      <p md-line>
+        Seeder: {{link.SE}} Leechers: {{link.LE}}
+      </p>
+      <p md-line>
+        Trusted: {{link.trusted}} VIP: {{link.vip}}
+      </p>
+    </md-list-item>
+    <md-divider></md-divider>
+  </div>
+</md-list>
+</div>
+
+<ng-template #other_content>
+<h3>No results</h3>
+</ng-template>

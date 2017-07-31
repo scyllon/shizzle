@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class='row'>
+        <div class='col-sm-12'>
+          <img src='http://ncmerfest.com/img/header-be-a-pirate.png' style="display:block;margin:auto;">
+        </div>
+      </div>
+      <div class='row' style='margin-bottom:50px;margin-top:50px;'>
+        <div class="col-sm-9">
+          <md-input-container style='width:100%'>
+            <input mdInput placeholder="TorrentSearch" [(ngModel)]="temp_search" (keyup.enter)='newSearch()'>
+          </md-input-container>
+        </div>
+        <div class="col-sm-3">
+          <button md-button (click)='newSearch()' style='width:100%'>Search</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <md-tab-group>
+            <md-tab label='{{day.key}}' *ngFor="let day of data | keys">
+              <md-list>
+                <md-list-item *ngFor="let episode of day.value">
+                  <md-card style="width:100%;display:block;margin-left:auto;margin-right:auto;margin-bottom:10px">
+                    <md-card-title-group>
+                      <img md-card-sm-image src='{{episode._embedded.show.image.medium}}'>
+                      <md-card-title>{{episode._embedded.show.name}}</md-card-title>
+                      <md-card-subtitle>Season: {{episode.season}} Episode: {{episode.number}} </md-card-subtitle>
+                    </md-card-title-group>
+                    <md-card-content>{{episode.summary}}</md-card-content>
+                    <md-card-footer style="opacity:0.5;">{{countDown(episode.airstamp)}}</md-card-footer>
+                    <md-card-actions align="end">
+                      <a href="http://www.imdb.com/title/{{episode._embedded.show.externals.imdb}}/" *ngIf="episode._embedded.show.externals.imdb" md-button>IMDB</a>
+                      <button md-button (click)="newEpisodeSearch(episode._embedded.show.name, episode.season , episode.number )">TORRENT</button>
+                    </md-card-actions>
+                  </md-card>
+                </md-list-item>
+              </md-list>
+            </md-tab>
+          </md-tab-group>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-4">
+      <div style="position:fixed;top:80px;">
+        <div class='row'>
+          <div class='col-sm-12'>
+            <h1>Torrents</h1>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <app-torrent-search [torrent]="toSearch"></app-torrent-search>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
